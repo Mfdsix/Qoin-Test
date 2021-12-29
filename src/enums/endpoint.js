@@ -5,6 +5,7 @@ const ENDPOINTS = {
     "https://api.themoviedb.org/3/genre/movie/list?api_key=" + API_KEY,
   get_movies: "https://api.themoviedb.org/3/movie/upcoming?api_key=" + API_KEY,
   get_movie: "https://api.themoviedb.org/3/movie/MOVIEID?api_key=" + API_KEY,
+  get_poster: "http://image.tmdb.org/t/p/w500/",
 };
 
 export default ENDPOINTS;
