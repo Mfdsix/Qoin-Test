@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Pagination } from "react-bootstrap";
 import axios from "axios";
 import ENDPOINTS from "../enums/endpoint";
+import { useNavigate } from "react-router-dom";
 
 export default function Movie() {
   const [data, setData] = useState([]);
@@ -9,6 +10,7 @@ export default function Movie() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const navigate = useNavigate();
 
   function goToPage(number) {
     setPage(number);
@@ -43,8 +45,13 @@ export default function Movie() {
 
   function getPagination() {
     let items = [];
+    let numbers = [page, page + 1, page + 2, page + 3, page + 4];
 
-    for (let number = page; number <= 5; number++) {
+    if (page > totalPages - 5) {
+      numbers = [page - 4, page - 3, page - 2, page - 1, page];
+    }
+
+    numbers.forEach((number) => {
       if (number <= totalPages) {
         items.push(
           <Pagination.Item
@@ -56,7 +63,7 @@ export default function Movie() {
           </Pagination.Item>
         );
       }
-    }
+    });
 
     return items;
   }
@@ -101,9 +108,18 @@ export default function Movie() {
                   src={ENDPOINTS.get_poster + item.poster_path}
                 />
                 <Card.Body>
-                  <Card.Title>{item.title}</Card.Title>
+                  <Card.Title>
+                    {item.title} (⭐ {item.vote_average})
+                  </Card.Title>
                   <Card.Text>{item.overview.substring(0, 100)}...</Card.Text>
-                  <Button variant="primary">More 'bout this movie</Button>
+                  <Button
+                    onClick={() => {
+                      navigate("/movie/" + item.id);
+                    }}
+                    variant="primary"
+                  >
+                    More 'bout this movie
+                  </Button>
                 </Card.Body>
               </Card>
             </div>
