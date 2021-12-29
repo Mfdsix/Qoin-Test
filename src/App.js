@@ -1,23 +1,24 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import MainNavbar from "./components/MainNavbar";
+
+import HomeScreen from "./screens/Home";
+import GenreScreen from "./screens/Genre";
+import MovieScreen from "./screens/Movie";
+
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <MainNavbar />
+      <div className="p-4">
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/genre" element={<GenreScreen />} />
+          <Route path="/movie" element={<MovieScreen />} />
+        </Routes>
+      </div>
     </div>
   );
 }
